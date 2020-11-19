@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable strict */
 const store = {
   items: [
     { id: cuid(), name: 'apples', checked: false },
@@ -5,7 +7,8 @@ const store = {
     { id: cuid(), name: 'milk', checked: true },
     { id: cuid(), name: 'bread', checked: false }
   ],
-  hideCheckedItems: false
+  hideCheckedItems: false,
+  
 };
 
 const generateItemElement = function (item) {
@@ -25,6 +28,9 @@ const generateItemElement = function (item) {
         </button>
         <button class='shopping-item-delete js-item-delete'>
           <span class='button-label'>delete</span>
+        </button>
+        <button class='shopping-item-edit js-item-edit'>
+          <span class='button-label'>edit</span>
         </button>
       </div>
     </li>`;
@@ -85,6 +91,18 @@ const handleItemCheckClicked = function () {
   $('.js-shopping-list').on('click', '.js-item-toggle', event => {
     const id = getItemIdFromElement(event.currentTarget);
     toggleCheckedForListItem(id);
+    render();
+  });
+};
+
+const editItem = function() {
+  const index = store.items.findIndex(item => item.id === id);
+  // store.items.(index, 1, `${itemTitle}`);
+};
+
+const handleItemEdit = function () {
+  $('.js-shopping-list').on('click', '.js-item-edit', event => {
+    editItem();
     render();
   });
 };
@@ -160,6 +178,7 @@ const handleShoppingList = function () {
   handleItemCheckClicked();
   handleDeleteItemClicked();
   handleToggleFilterClick();
+  handleItemEdit();
 };
 
 // when the page loads, call `handleShoppingList`
